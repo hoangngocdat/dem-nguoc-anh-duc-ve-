@@ -113,6 +113,24 @@ body {
         font-size: 45px;
     }
 }
+    .music-btn {
+    margin-top: 25px;
+    padding: 14px 28px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    transition: 0.25s;
+}
+
+.music-btn:hover {
+    transform: scale(1.06);
+    background: rgba(255,255,255,0.18);
+}
 </style>
 </head>
 
@@ -230,8 +248,20 @@ update();
 setInterval(update, 1000);
 
 </script>
-<audio id="music" autoplay loop>
+<audio id="music" loop>
     <source src="./tiktok_music_7659756332714609940.mp3" type="audio/mpeg">
 </audio>
+
+<button class="music-btn" id="musicBtn">🎵 Bật nhạc</button>
+
+<script>
+const music = document.getElementById("music");
+const musicBtn = document.getElementById("musicBtn");
+
+musicBtn.addEventListener("click", () => {
+    music.play();
+    musicBtn.textContent = "🎵 Đang phát";
+});
+</script>
 </body>
 </html>
