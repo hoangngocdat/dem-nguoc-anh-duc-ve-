@@ -255,19 +255,22 @@ setInterval(update, 1000);
 <button class="music-btn" id="musicBtn">🎵 Bật nhạc</button>
 
 <script>
-<script>
 const music = document.getElementById("music");
 const musicBtn = document.getElementById("musicBtn");
 
-musicBtn.addEventListener("click", () => {
+musicBtn.addEventListener("click", function () {
     if (music.paused) {
-        music.play();
-        musicBtn.textContent = "🔇 Tắt nhạc";
+        music.play().then(() => {
+            musicBtn.textContent = "🔇 Tắt nhạc";
+        }).catch(error => {
+            console.log("Không thể phát nhạc:", error);
+        });
     } else {
         music.pause();
         musicBtn.textContent = "🎵 Bật nhạc";
     }
 });
+</script>
 </script>
 </body>
 </html>
