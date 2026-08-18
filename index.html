@@ -255,12 +255,18 @@ setInterval(update, 1000);
 <button class="music-btn" id="musicBtn">🎵 Bật nhạc</button>
 
 <script>
+<script>
 const music = document.getElementById("music");
 const musicBtn = document.getElementById("musicBtn");
 
 musicBtn.addEventListener("click", () => {
-    music.play();
-    musicBtn.textContent = "🎵 Đang phát";
+    if (music.paused) {
+        music.play();
+        musicBtn.textContent = "🔇 Tắt nhạc";
+    } else {
+        music.pause();
+        musicBtn.textContent = "🎵 Bật nhạc";
+    }
 });
 </script>
 </body>
