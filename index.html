@@ -90,13 +90,43 @@ body {
     font-weight: bold;
 }
 
+/* NÚT NHẠC */
+.music-btn {
+    display: block;
+    margin: 25px auto 0;
+    padding: 14px 30px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    transition: 0.25s;
+}
+
+.music-btn:hover {
+    transform: scale(1.06);
+    background: rgba(255,255,255,0.18);
+}
+
+.music-btn:active {
+    transform: scale(0.96);
+}
+
 .footer {
-    margin-top: 30px;
+    margin-top: 25px;
     color: #707b8f;
     font-size: 13px;
 }
 
 @media (max-width: 650px) {
+    .container {
+        padding: 35px 20px;
+    }
+
     .countdown {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -112,24 +142,14 @@ body {
     .number {
         font-size: 45px;
     }
-}
-    .music-btn {
-    margin-top: 25px;
-    padding: 14px 28px;
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 50px;
-    background: rgba(255,255,255,0.1);
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    backdrop-filter: blur(10px);
-    transition: 0.25s;
-}
 
-.music-btn:hover {
-    transform: scale(1.06);
-    background: rgba(255,255,255,0.18);
+    .today {
+        font-size: 18px;
+    }
+
+    .target {
+        font-size: 16px;
+    }
 }
 </style>
 </head>
@@ -176,6 +196,15 @@ body {
 
     </div>
 
+    <!-- NHẠC -->
+    <audio id="music" loop>
+        <source src="./tiktok_music_7659756332714609940.mp3" type="audio/mpeg">
+    </audio>
+
+    <button class="music-btn" id="musicBtn">
+        🎵 Bật nhạc
+    </button>
+
     <div class="done" id="done">
         🎉 ĐÃ ĐẾN GIỜ!
     </div>
@@ -187,6 +216,9 @@ body {
 </div>
 
 <script>
+/* =========================
+   ĐẾM NGƯỢC
+========================= */
 
 const target = new Date(2026, 7, 30, 16, 0, 0);
 
@@ -237,39 +269,57 @@ function update() {
     const seconds =
         totalSeconds % 60;
 
-    document.getElementById("days").textContent = pad(days);
-    document.getElementById("hours").textContent = pad(hours);
-    document.getElementById("minutes").textContent = pad(minutes);
-    document.getElementById("seconds").textContent = pad(seconds);
+    document.getElementById("days").textContent =
+        pad(days);
+
+    document.getElementById("hours").textContent =
+        pad(hours);
+
+    document.getElementById("minutes").textContent =
+        pad(minutes);
+
+    document.getElementById("seconds").textContent =
+        pad(seconds);
 }
 
 update();
 
 setInterval(update, 1000);
 
-</script>
-<audio id="music" loop>
-    <source src="./tiktok_music_7659756332714609940.mp3" type="audio/mpeg">
-</audio>
 
-<button class="music-btn" id="musicBtn">🎵 Bật nhạc</button>
+/* =========================
+   BẬT / TẮT NHẠC
+========================= */
 
-<script>
 const music = document.getElementById("music");
 const musicBtn = document.getElementById("musicBtn");
 
-musicBtn.addEventListener("click", function () {
+musicBtn.addEventListener("click", async function () {
+
     if (music.paused) {
-        music.play().then(() => {
+
+        try {
+
+            await music.play();
+
             musicBtn.textContent = "🔇 Tắt nhạc";
-        }).catch(error => {
+
+        } catch (error) {
+
             console.log("Không thể phát nhạc:", error);
-        });
+
+        }
+
     } else {
+
         music.pause();
+
         musicBtn.textContent = "🎵 Bật nhạc";
+
     }
+
 });
 </script>
+
 </body>
 </html>
