@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Đếm ngược</title>
+<title>Đếm ngược - Anh Đức về nhà</title>
 
 <style>
 * {
@@ -34,17 +34,41 @@ body {
     box-shadow: 0 25px 80px rgba(0,0,0,0.5);
 }
 
+/* =========================
+   CHÀO MỪNG
+========================= */
+
+.welcome {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #e6edf8;
+    letter-spacing: 1px;
+}
+
+/* =========================
+   TIÊU ĐỀ
+========================= */
+
 .title {
-    font-size: 50px;
+    font-size: 44px;
     font-weight: bold;
     margin-bottom: 10px;
 }
+
+/* =========================
+   NGÀY HIỆN TẠI
+========================= */
 
 .today {
     font-size: 23px;
     color: #c8d0df;
     text-transform: capitalize;
 }
+
+/* =========================
+   ĐỒNG HỒ
+========================= */
 
 .clock {
     font-size: 75px;
@@ -53,11 +77,19 @@ body {
     margin: 10px 0 35px;
 }
 
+/* =========================
+   MỤC TIÊU
+========================= */
+
 .target {
     color: #aeb8ca;
     font-size: 18px;
     margin-bottom: 20px;
 }
+
+/* =========================
+   4 Ô ĐẾM NGƯỢC
+========================= */
 
 .countdown {
     display: grid;
@@ -84,13 +116,20 @@ body {
     letter-spacing: 2px;
 }
 
+/* =========================
+   ĐÃ ĐẾN GIỜ
+========================= */
+
 .done {
     display: none;
     font-size: 45px;
     font-weight: bold;
 }
 
-/* NÚT NHẠC */
+/* =========================
+   NÚT NHẠC
+========================= */
+
 .music-btn {
     display: block;
     margin: 25px auto 0;
@@ -116,15 +155,29 @@ body {
     transform: scale(0.96);
 }
 
+/* =========================
+   FOOTER
+========================= */
+
 .footer {
     margin-top: 25px;
     color: #707b8f;
     font-size: 13px;
 }
 
+/* =========================
+   ĐIỆN THOẠI
+========================= */
+
 @media (max-width: 650px) {
+
     .container {
         padding: 35px 20px;
+    }
+
+    .welcome {
+        font-size: 22px;
+        margin-bottom: 12px;
     }
 
     .countdown {
@@ -132,7 +185,7 @@ body {
     }
 
     .title {
-        font-size: 38px;
+        font-size: 34px;
     }
 
     .clock {
@@ -158,20 +211,32 @@ body {
 
 <div class="container">
 
-    <div class="title">⏳ ĐẾM NGƯỢC</div>
+    <!-- CHÀO MỪNG -->
+    <div class="welcome">
+        🎉 CHÀO MỪNG NGÀY ANH ĐỨC VỀ NHÀ 🎉
+    </div>
 
+    <!-- TIÊU ĐỀ -->
+    <div class="title">
+        🕐 ĐẾM NGƯỢC 🕐
+    </div>
+
+    <!-- NGÀY HIỆN TẠI -->
     <div class="today" id="today">
         Đang tải...
     </div>
 
+    <!-- GIỜ HIỆN TẠI -->
     <div class="clock" id="clock">
         00:00:00
     </div>
 
+    <!-- THỜI GIAN ĐÍCH -->
     <div class="target">
         Đếm ngược đến <b>16:00 ngày 30/08/2026</b>
     </div>
 
+    <!-- ĐẾM NGƯỢC -->
     <div class="countdown" id="countdown">
 
         <div class="box">
@@ -201,14 +266,17 @@ body {
         <source src="./tiktok_music_7659756332714609940.mp3" type="audio/mpeg">
     </audio>
 
+    <!-- NÚT BẬT / TẮT NHẠC -->
     <button class="music-btn" id="musicBtn">
         🎵 Bật nhạc
     </button>
 
+    <!-- ĐÃ ĐẾN GIỜ -->
     <div class="done" id="done">
         🎉 ĐÃ ĐẾN GIỜ!
     </div>
 
+    <!-- FOOTER -->
     <div class="footer">
         Đồng hồ sử dụng thời gian trên thiết bị của người xem.
     </div>
@@ -216,6 +284,7 @@ body {
 </div>
 
 <script>
+
 /* =========================
    ĐẾM NGƯỢC
 ========================= */
@@ -230,7 +299,7 @@ function update() {
 
     const now = new Date();
 
-    // Ngày hiện tại
+    /* Ngày hiện tại */
     document.getElementById("today").textContent =
         new Intl.DateTimeFormat("vi-VN", {
             weekday: "long",
@@ -239,15 +308,16 @@ function update() {
             year: "numeric"
         }).format(now);
 
-    // Giờ hiện tại
+    /* Giờ hiện tại */
     document.getElementById("clock").textContent =
         pad(now.getHours()) + ":" +
         pad(now.getMinutes()) + ":" +
         pad(now.getSeconds());
 
-    // Thời gian còn lại
+    /* Thời gian còn lại */
     const difference = target - now;
 
+    /* Khi đã đến giờ */
     if (difference <= 0) {
 
         document.getElementById("countdown").style.display = "none";
@@ -256,9 +326,11 @@ function update() {
         return;
     }
 
-    const totalSeconds = Math.floor(difference / 1000);
+    const totalSeconds =
+        Math.floor(difference / 1000);
 
-    const days = Math.floor(totalSeconds / 86400);
+    const days =
+        Math.floor(totalSeconds / 86400);
 
     const hours =
         Math.floor((totalSeconds % 86400) / 3600);
@@ -291,34 +363,45 @@ setInterval(update, 1000);
    BẬT / TẮT NHẠC
 ========================= */
 
-const music = document.getElementById("music");
-const musicBtn = document.getElementById("musicBtn");
+const music =
+    document.getElementById("music");
 
-musicBtn.addEventListener("click", async function () {
+const musicBtn =
+    document.getElementById("musicBtn");
 
-    if (music.paused) {
+musicBtn.addEventListener(
+    "click",
+    async function () {
 
-        try {
+        if (music.paused) {
 
-            await music.play();
+            try {
 
-            musicBtn.textContent = "🔇 Tắt nhạc";
+                await music.play();
 
-        } catch (error) {
+                musicBtn.textContent =
+                    "🔇 Tắt nhạc";
 
-            console.log("Không thể phát nhạc:", error);
+            } catch (error) {
 
+                console.log(
+                    "Không thể phát nhạc:",
+                    error
+                );
+
+            }
+
+        } else {
+
+            music.pause();
+
+            musicBtn.textContent =
+                "🎵 Bật nhạc";
         }
-
-    } else {
-
-        music.pause();
-
-        musicBtn.textContent = "🎵 Bật nhạc";
-
     }
+);
 
-});
 </script>
+
 </body>
 </html>
